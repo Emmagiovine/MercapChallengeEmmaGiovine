@@ -1,0 +1,30 @@
+|user1 user2 user3 user4 location1 location2 location3 location4 country1 country2 country3 country4 billing1 billing2 billing3 billing4 telephoneCompany billingFromUser localCallsTotalCharge nacionalAndInternationalCallsTotalCharge|
+
+telephoneCompany := TelephoneCompany new.
+
+country1 := Country withName: 'Argentina' andPrice: 500.
+country2 := Country withName:'Chile' andPrice: 800.
+country3 := Country withName: 'United States' andPrice: 100.
+country4 := Country withName: 'Australia' andPrice: 300.
+
+location1 := Location withName: 'Buenos Aires' andPrice: 50.
+location2 := Location withName:'Washington' andPrice: 40.
+location3 := Location withName: 'La Plata' andPrice: 45.
+location4 := Location withName: 'Santiago' andPrice: 300.
+
+user1 := telephoneCompany registerNewUserFromLocation: location1 fromCountry: country1 withMonthlyPayment: 50000.
+user2 := telephoneCompany registerNewUserFromLocation: location3 fromCountry: country1 withMonthlyPayment: 80000.
+user3 := telephoneCompany registerNewUserFromLocation: location1 fromCountry: country1 withMonthlyPayment: 10000.
+user4 := telephoneCompany registerNewUserFromLocation: location4 fromCountry: country3 withMonthlyPayment: 10000.
+
+user1 callUser: user2 atHour: 4 onDay: 'Friday' forDuration: 10.
+user1 callUser: user3 atHour: 4 onDay: 'Saturday' forDuration: 10.
+user1 callUser: user3 atHour: 10 onDay: 'Friday' forDuration: 10.
+user1 callUser: user4 atHour: 10 onDay: 'Friday' forDuration: 10.
+
+telephoneCompany generateBillingForUser: user1. 
+billing1 := user1 getBilling.
+
+Transcript show: billing1 getMonthlyPayment; cr.
+Transcript show: billing1 getLocalCallsTotalCharge; cr.
+Transcript show: billing1 getNacionalAndInternationalCallsTotalCharge; cr.
